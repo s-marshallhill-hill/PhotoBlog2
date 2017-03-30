@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PhotoBlog.Services;
+using PhotoBlog.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,17 @@ namespace PhotoBlog2.Controllers
 {
     public class HomeController : Controller
     {
+        private PhotoEntryService _photoEntryService = null;
+
+        public HomeController()
+        {
+            this._photoEntryService = new PhotoEntryService();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            PhotoEntry[] photos = this._photoEntryService.GetAllPhotoEntries();
+            return View(photos);
         }
 
         public ActionResult About()
